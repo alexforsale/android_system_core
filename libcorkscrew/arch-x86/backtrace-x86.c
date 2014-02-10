@@ -22,7 +22,6 @@
 // glibc has its own renaming of the Linux kernel's structures.
 // define this here, so that it's defined before the first inclusion
 // of glibc's features.h
-#include <ucontext.h>
 #  define _GNU_SOURCE // For REG_EBP, REG_ESP, and REG_EIP.
 #endif
 
@@ -93,7 +92,10 @@ typedef struct ucontext {
 /* _GNU_SOURCE is already defined above */
 #  include <ucontext.h>
 
-#endif
+#else /* __APPLE__ */
+#include <ucontext.h>
+
+#endif /* __BIONIC__ */
 
 /* Unwind state. */
 typedef struct {
